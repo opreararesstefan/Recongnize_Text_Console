@@ -39,6 +39,7 @@ Aims:
    Each extract will be saved in a new file in Dir Extract
    Compare each character in the lists if they are identical. If they are valid then the extracted model will be saved in a file in Dir Validated with the name of a recognized Model name, 
    and this file will be opened with Notepad for a few seconds, after which notepad will close and the search process will be repeated until the end of the List.
+7. Logging is also a personally created function. After executing the program, All Logs can be read in C: \ temp \ Logs.txt
 
 TODO 
 Unit Test Project + Tests
