@@ -1,0 +1,8 @@
+C:\Workspac\Recongnize_Text_Console\bin\Debug\_Daten\NumberParserExtended.txt
+C:\Workspac\Recongnize_Text_Console\bin\Debug\Recongnize_Text_Console.exe.config
+C:\Workspac\Recongnize_Text_Console\bin\Debug\Recongnize_Text_Console.exe
+C:\Workspac\Recongnize_Text_Console\bin\Debug\Recongnize_Text_Console.pdb
+C:\Workspac\Recongnize_Text_Console\obj\Debug\Recongnize_Text_Console.csproj.CoreCompileInputs.cache
+C:\Workspac\Recongnize_Text_Console\obj\Debug\Recongnize_Text_Console.exe
+C:\Workspac\Recongnize_Text_Console\obj\Debug\Recongnize_Text_Console.pdb
+C:\Workspac\Recongnize_Text_Console\obj\Debug\Recongnize_Text_Console.csprojAssemblyReference.cache
