@@ -42,3 +42,9 @@ Aims:
 
 TODO 
 Unit Test Project + Tests
+
+Other solutions to this problem can be found here:
+https://stackoverflow.com/questions/32269791/how-to-tryparse-numbers-from-text-file-like-ascii-art-with-c
+
+Another idea I have, but haven't implemented yet, is to use String [] from the beginning and stop converting to char [] [].
+Theoretically, this method would be much easier.
