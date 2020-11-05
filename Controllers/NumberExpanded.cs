@@ -8,17 +8,22 @@ namespace Recongnize_Text_Console.Controllers
 {
     public class NumberExpanded
     {
-        public NumberExpanded()
-        { }
+       
+        #region Field
 
-        public Dictionary<string, char[,]> NumberExpand = new Dictionary<string, char[,]>()
-        { 
-            { "NumberOne", new char[4,2] { { '\0', '|' }, {'\0', '|' }, { '\0', '|' }, {'\0', '|' } } },
-            { "NumberTwo", new char[4,3] { { '-', '-', '-' }, {'\0', '_', '|' }, { '|', '\0', '\0' }, { '-', '-', '-' } } },
-            { "NumberThree", new char[4,3] { { '-', '-', '-' }, {'\0', '/', '\0' }, { '\0', '\\', '\0' }, { '-', '-', '\0' } }  },
-            { "NumberFour", new char[4,5] { { '|', '\0', '\0', '\0', '|' }, { '|', '_', '_', '_', '|' }, { '\0', '\0', '\0', '\0', '|' }, { '\0', '\0', '\0', '\0', '|' } }  },
-            { "NumberFive", new char[4,5] { { '-', '-', '-', '-', '-' }, { '|', '_', '_', '_', '\n' }, { '\0', '\0', '\0', '\0', '|' }, { '_', '_', '_', '_', '|' } }  }
+        /// <summary>
+        /// NumberExpandDictionary
+        /// </summary>
+        public static Dictionary<string, char[][]> NumberExpandDictionary = new Dictionary<string, char[][]>()
+        {
+            { "NumberOne", new char[4][] { new char[] { '\0', '|' }, new char[] { '\0', '|' }, new char[] { '\0', '|' }, new char[] { '\0', '|' } } },
+            { "NumberTwo", new char[4][] { new char[] { '-', '-', '-' }, new char[] { '\0', '_', '|' }, new char[] { '|', '\0', '\0' }, new char[] { '-', '-', '-' } } },
+            { "NumberThree", new char[4][] { new char[] { '-', '-', '-' }, new char[] { '\0', '/', '\0' }, new char[] { '\0', '\\', '\0' }, new char[] { '-', '-', '\0' } }  },
+            { "NumberFour", new char[4][] { new char[] { '|', '\0', '\0', '\0', '|' }, new char[] { '|', '_', '_', '_', '|' }, new char[] { '\0', '\0', '\0', '\0', '|' }, new char[] { '\0', '\0', '\0', '\0', '|' } }  },
+            { "NumberFive", new char[4][] { new char[] { '-', '-', '-', '-', '-' }, new char[] { '|', '_', '_', '_', '\0' }, new char[] { '\0', '\0', '\0', '\0', '|' }, new char[] { '_', '_', '_', '_', '|' } }  }
         };
+
+        #endregion
 
     }
 }

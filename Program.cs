@@ -9,7 +9,7 @@ namespace Recongnize_Text_Console
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             #region Start
 

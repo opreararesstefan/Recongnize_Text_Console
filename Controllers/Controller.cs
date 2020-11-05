@@ -35,22 +35,6 @@ namespace Recongnize_Text_Console.Controllers
 
         #endregion
 
-        #region Field
-
-        /// <summary>
-        /// NumberExpandDictionary
-        /// </summary>
-        public Dictionary<string, char[][]> NumberExpandDictionary = new Dictionary<string, char[][]>()
-        {
-            { "NumberOne", new char[4][] { new char[] { '\0', '|' }, new char[] { '\0', '|' }, new char[] { '\0', '|' }, new char[] { '\0', '|' } } },
-            { "NumberTwo", new char[4][] { new char[] { '-', '-', '-' }, new char[] { '\0', '_', '|' }, new char[] { '|', '\0', '\0' }, new char[] { '-', '-', '-' } } },
-            { "NumberThree", new char[4][] { new char[] { '-', '-', '-' }, new char[] { '\0', '/', '\0' }, new char[] { '\0', '\\', '\0' }, new char[] { '-', '-', '\0' } }  },
-            { "NumberFour", new char[4][] { new char[] { '|', '\0', '\0', '\0', '|' }, new char[] { '|', '_', '_', '_', '|' }, new char[] { '\0', '\0', '\0', '\0', '|' }, new char[] { '\0', '\0', '\0', '\0', '|' } }  },
-            { "NumberFive", new char[4][] { new char[] { '-', '-', '-', '-', '-' }, new char[] { '|', '_', '_', '_', '\0' }, new char[] { '\0', '\0', '\0', '\0', '|' }, new char[] { '_', '_', '_', '_', '|' } }  }
-        };
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -61,7 +45,6 @@ namespace Recongnize_Text_Console.Controllers
         public int ColumnIndex { get; set; }
         public int RowIndex { get; set; }
         public int LastLength { get; set; }
-        private string Logs { get; set; }
         private static int CountLogNumber { get; set; }
         private static int ValidNumber { get; set; }
 
@@ -86,9 +69,9 @@ namespace Recongnize_Text_Console.Controllers
         /// </summary>
         public void CreateRefernzDir()
         {
-            ReportLogsInfo("CreateRefernzDir()");
-            foreach (var element in NumberExpandDictionary)
-                ReportLogsInfo(element.Key, element.Value, @"C:\temp\Referenz\" + element.Key + ".txt");
+            Logging.ReportLogsInfo("CreateRefernzDir()");
+            foreach (var element in NumberExpanded.NumberExpandDictionary)
+                Logging.ReportLogsInfo(element.Key, element.Value, @"C:\temp\Referenz\" + element.Key + ".txt");
         }
 
         /// <summary>
@@ -97,7 +80,7 @@ namespace Recongnize_Text_Console.Controllers
         /// <returns>true if Read otherwise false</returns>
         public bool ReadTXTFile()
         {
-            ReportLogsInfo("ReadTXTFile()");
+            Logging.ReportLogsInfo("ReadTXTFile()");
             if (File.Exists(REFERENCEFILE))
             {
                 Initializer();
@@ -119,7 +102,7 @@ namespace Recongnize_Text_Console.Controllers
                 line[counter] = lines[counter].ToCharArray();
                 if (line[counter].Length > max)
                     max = line[counter].Length;
-                ReportLogsInfo("Linia " + counter + " has length: " + line[counter].Length +"\n", null, @"C:\temp\referenz\Line " + counter +  " .txt");
+                Logging.ReportLogsInfo("Linia " + counter + " has length: " + line[counter].Length +"\n", null, @"C:\temp\referenz\Line " + counter +  " .txt");
             }
             OriginalText = TransformText(line, max);
             ColumnIndex = 0;
@@ -127,7 +110,7 @@ namespace Recongnize_Text_Console.Controllers
             LastLength = 0;
             CountLogNumber = 0;
             ValidNumber = 1;
-            ReportLogsInfo("MyEncoding \n", OriginalText, @"C:\temp\validate\MyEncoding.txt");
+            Logging.ReportLogsInfo("MyEncoding \n", OriginalText, @"C:\temp\validate\MyEncoding.txt");
         }
 
         /// <summary>
@@ -140,10 +123,7 @@ namespace Recongnize_Text_Console.Controllers
         {
             char[][] results = new char[line.Length][];
             for(int countLine = 0; countLine < line.Length; countLine++)
-            {
-
                 results[countLine] = CharList(line, max, countLine);
-            }
             return results;
         }
 
@@ -240,16 +220,16 @@ namespace Recongnize_Text_Console.Controllers
         {
             CreateDeploymentDir();
             if (File.Exists(LOGS))
-                Logs = CreateUniquePath(LOGS);
+                Logging.Logs = Logging.CreateUniquePath(LOGS);
             else
-                Logs = LOGS;
-            ReportLogsInfo("Start()");
+                Logging.Logs = LOGS;
+            Logging.ReportLogsInfo("Start()");
             if (ReadTXTFile())
             {
                 CreateRefernzDir();
                 for (int col = 0; col < OriginalText[1].Length;)
                 {
-                    ReportLogsInfo("LOOP IN Start\t  Column:  " + col);
+                    Logging.ReportLogsInfo("LOOP IN Start\t  Column:  " + col);
                     ColumnIndex = col;
                     if (SearchInDictionary(col))
                     {
@@ -270,17 +250,17 @@ namespace Recongnize_Text_Console.Controllers
         public bool SearchInDictionary(int column)
         {
             bool found = false;
-            foreach (var element in NumberExpandDictionary)
+            foreach (var element in NumberExpanded.NumberExpandDictionary)
             {
-                ReportLogsInfo("SearchInNumberExpand for  " + element.Key +
+                Logging.ReportLogsInfo("SearchInNumberExpand for  " + element.Key +
                     "\n ExtractText(element.Value[0].Length " + element.Value[0].Length);
                 var expect = ExtractText(element.Value[0].Length, column, 0, element.Key);
                 bool flag = ValidateNumber(expect, element.Key);
                 if (flag)
                 {
                     string validFile = @"C:\temp\validate\" + element.Key + ".txt";
-                    ReportLogsInfo("VALIDATE VALIDATE VALIDATE VALIDATE VALIDATE VALIDATE \t" + ValidNumber + element.Key);
-                    ReportLogsInfo("VALIDATE VALIDATE VALIDATE VALIDATE VALIDATE VALIDATE \t" + ValidNumber + element.Key, expect, validFile);
+                    Logging.ReportLogsInfo("VALIDATE VALIDATE VALIDATE VALIDATE VALIDATE VALIDATE \t" + ValidNumber + element.Key);
+                    Logging.ReportLogsInfo("VALIDATE VALIDATE VALIDATE VALIDATE VALIDATE VALIDATE \t" + ValidNumber + element.Key, expect, validFile);
                     LastLength = element.Value.Length - 1;
                     ValidNumber++;
                     found = true;
@@ -315,7 +295,7 @@ namespace Recongnize_Text_Console.Controllers
                 }
                 results[lines] = temp;
             }
-            ReportLogsInfo("Extract     Length = " + length + " column = " + column + " \n SearchNumber: " + 
+            Logging.ReportLogsInfo("Extract     Length = " + length + " column = " + column + " \n SearchNumber: " + 
                 searchNumber + "\n", results, @"C:\temp\extract\" + CountLogNumber + "column" + column + " Length " + length + " " + searchNumber + " " + ".txt");
             CountLogNumber++;
             return results;
@@ -330,7 +310,7 @@ namespace Recongnize_Text_Console.Controllers
         public bool ValidateNumber(char[][] expected, string index)
         {
             var found = false;
-            var referenz = NumberExpandDictionary[index];
+            var referenz = NumberExpanded.NumberExpandDictionary[index];
             if (referenz[0].Length == expected[0].Length)
             {
                 for (int lines = 0; lines < expected.Length; lines++)
@@ -379,67 +359,5 @@ namespace Recongnize_Text_Console.Controllers
 
         #endregion
 
-        #region Logging
-
-        /// <summary>
-        /// ReportLogsInfo
-        /// </summary>
-        /// <param name="strMessage">strMessage</param>
-        /// <param name="collection">collection</param>
-        /// <param name="log">log</param>
-        public void ReportLogsInfo(string strMessage, char[][] collection = null, string log = "")
-        {
-            if (log == string.Empty)
-                log = Logs;
-            if (collection != null)
-            {
-                string result = "\n";
-                foreach (var element in collection)
-                {
-                    result += "\n";
-                    foreach (var item in element)
-                        result += item;
-                }
-                strMessage += result;
-            }
-            using (StreamWriter w = File.AppendText(log))
-            {
-                WriteToLogs(strMessage, w);
-            }
-        }
-
-        /// <summary>
-        /// WriteToLogs
-        /// </summary>
-        /// <param name="strMessage">strMessage</param>
-        /// <param name="w">TextWriter</param>
-        public void WriteToLogs(string strMessage, TextWriter w)
-        {
-            w.Write("\r\nLog Info : ");
-            w.WriteLine($"  :{strMessage}");
-            w.WriteLine("-------------------------------");
-        }
-
-        /// <summary>
-        /// CreateUniquePath
-        /// </summary>
-        /// <param name="file">file</param>
-        /// <returns>newFullPath</returns>
-        public string CreateUniquePath(string file)
-        {
-            int count = 1;
-            string fileNameOnly = Path.GetFileNameWithoutExtension(file);
-            string extension = Path.GetExtension(file);
-            string path = Path.GetDirectoryName(file);
-            string newFullPath = file;
-            while (File.Exists(newFullPath))
-            {
-                string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
-                newFullPath = Path.Combine(path, tempFileName + extension);
-            }
-            return newFullPath;
-        }
-
-        #endregion
     }
 }
