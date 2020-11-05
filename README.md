@@ -2,14 +2,10 @@
 
 Here is the task:
 
----   ---    |  |   |  ----- 
- /     _|    |  |___|  |___  
- \    |      |      |      | 
---    ---    |      |  ____| 
-|  |   |   -----             
-|  |___|   |___              
-|      |       |             
-|      |   ____|             
+---  
+ /     
+ \    
+--            
 
 Numbers (3, 2, 1, 4, 5) are coded with horizontal and vertical bars in the attached text file [ _Daten\NumberParserExtended.txt ].
 
